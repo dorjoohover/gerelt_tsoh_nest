@@ -1,6 +1,4 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty, IsString, IsEnum } from 'class-validator';
 import mongoose, { Document } from 'mongoose';
 import { UserTypes } from 'src/utlis/enum';
 

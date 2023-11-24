@@ -9,6 +9,11 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { InfoModule } from './resourses/info/info.module';
 import { LegalModule } from './resourses/legal/legal.module';
 import { WorkModule } from './resourses/work/work.module';
+import { FeedbackModule } from './resourses/feedback/feedback.module';
+import { ContactModule } from './resourses/contact/contact.module';
+import { MedicalModule } from './resourses/medical/medical.module';
+import { ArticleModule } from './resourses/article/article.module';
+import { TopicModule } from './resourses/topic/topic.module';
 
 @Module({
   imports: [
@@ -26,7 +31,12 @@ import { WorkModule } from './resourses/work/work.module';
     UserModule,
     InfoModule,
     LegalModule,
-    WorkModule
+    WorkModule,
+    FeedbackModule,
+    ContactModule,
+    MedicalModule,
+    ArticleModule,
+    TopicModule,
   ],
   controllers: [AppController],
   providers: [AppService],

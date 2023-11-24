@@ -1,10 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty, IsString, IsEnum, IsInt } from 'class-validator';
 import mongoose, { Document } from 'mongoose';
 import { WorkTypes } from 'src/utlis/enum';
 
-import { User } from './user.schema';
+
 
 export type WorkDocument = Document & Work;
 
