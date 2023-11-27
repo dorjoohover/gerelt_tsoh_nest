@@ -14,6 +14,7 @@ export class TopicService {
 
   async find(dto: GetDto) {
     try {
+      console.log(dto);
       return this.model
         .find()
         .limit(dto.limit)
@@ -34,11 +35,13 @@ export class TopicService {
   }
   async findType(type: SymbolTypes, dto: GetDto) {
     try {
-      return this.model
-        .find({ types: type })
+      let res = await this.model
+        .find({ type: type })
         .limit(dto.limit)
-        .skip(dto.limit * (dto.page < 1 ? 1 : dto.page - 1))
+        .skip(dto.limit * (dto.page < 0 ? 0 : dto.page))
         .exec();
+
+      return res;
     } catch (error) {
       console.log(error);
       throw new HttpException(Messages.occured, 500);
@@ -47,8 +50,7 @@ export class TopicService {
 
   async create(dto: TopicDto) {
     try {
-      dto.types = SymbolType(dto.title);
-      return this.model.create(dto);
+      return this.model.create({ ...dto, type: SymbolType(dto.title) });
     } catch (error) {
       console.log(error);
       throw new HttpException(Messages.occured, 500);
@@ -57,9 +59,9 @@ export class TopicService {
 
   async put(id: string, dto: TopicDto) {
     try {
-      dto.types = SymbolType(dto.title);
       return this.model.findByIdAndUpdate(id, {
-        dto,
+        ...dto,
+        type: SymbolType(dto.title),
       });
     } catch (error) {
       console.log(error);
