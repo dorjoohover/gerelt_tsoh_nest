@@ -42,14 +42,8 @@ export class MedicalController {
 
   @ApiBearerAuth('access-token')
   @UseGuards(AuthGuard)
-  @UseInterceptors(
-    FileInterceptor('img', {
-      dest: './uploads',
-    }),
-  )
   @Post('/detail/create')
-  createDetail(@Body() dto: MedicalDetailDto, @UploadedFile() file) {
-    console.log(file);
+  createDetail(@Body() dto: MedicalDetailDto) {
     return this.service.createDetail(dto);
   }
   @ApiBearerAuth('access-token')

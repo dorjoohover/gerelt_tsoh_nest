@@ -6,7 +6,6 @@ import { MedicalTypes, SymbolTypes } from 'src/utlis/enum';
 
 export class MedicalDetailDto {
   @ApiProperty({ required: true })
-  @IsString()
   title: string;
 
   @ApiProperty()

@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
+
 import { AppService } from './app.service';
 import { AuthModule } from './resourses/auth/auth.module';
 import { UserModule } from './resourses/user/user.module';
@@ -14,6 +14,7 @@ import { ContactModule } from './resourses/contact/contact.module';
 import { MedicalModule } from './resourses/medical/medical.module';
 import { ArticleModule } from './resourses/article/article.module';
 import { TopicModule } from './resourses/topic/topic.module';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [

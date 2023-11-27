@@ -14,9 +14,8 @@ export class LegalService {
   async find(dto: GetDto) {
     try {
       return this.model
-        .find()
-        .limit(dto.limit)
-        .skip(dto.limit * (dto.page < 1 ? 1 : dto.page - 1))
+        .find({}, "_id title")
+
         .exec();
     } catch (error) {
       console.log(error);
@@ -34,9 +33,8 @@ export class LegalService {
   async findType(type: LegalTypes, dto: GetDto) {
     try {
       return this.model
-        .find({ types: type })
-        .limit(dto.limit)
-        .skip(dto.limit * (dto.page < 1 ? 1 : dto.page - 1))
+        .find({ types: type }, "_id title")
+
         .exec();
     } catch (error) {
       console.log(error);
