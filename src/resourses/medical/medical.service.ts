@@ -11,9 +11,10 @@ import {
 } from 'src/schemas';
 import { GetDto } from 'src/utlis/dto';
 import { SymbolTypes } from 'src/utlis/enum';
-import { Messages } from 'src/utlis/strings';
+import { Messages, api } from 'src/utlis/strings';
 import { MedicalDetailDto, MedicalDetailsDto, MedicalDto } from './medical.dto';
-
+import axios from 'axios';
+import { SymbolType } from 'src/utlis/functions';
 @Injectable()
 export class MedicalService {
   constructor(
@@ -29,7 +30,7 @@ export class MedicalService {
       return this.model
         .find({}, '_id title text')
         .limit(dto.limit)
-        .skip(dto.limit * (dto.page < 1 ? 1 : dto.page - 1))
+        .skip(dto.limit * (dto.page < 0 ? 0 : dto.page))
         .exec();
     } catch (error) {
       console.log(error);
@@ -38,7 +39,7 @@ export class MedicalService {
   }
   async findDetail() {
     try {
-      return this.detailModel.find();
+      return this.detailsModel.find({ parent: false });
       // .limit(dto.limit)
       // .skip(dto.limit * (dto.page < 1 ? 1 : dto.page - 1))
       // .exec();
@@ -49,7 +50,8 @@ export class MedicalService {
   }
   async findDetails() {
     try {
-      return this.detailsModel.find({});
+      return this.detailsModel.find({ parent: true });
+
       // .limit(dto.limit)
       // .skip(dto.limit * (dto.page < 1 ? 1 : dto.page - 1))
       // .exec();
@@ -60,7 +62,16 @@ export class MedicalService {
   }
   async findById(id: string) {
     try {
-      return this.model.findById(id);
+      return this.model.findById(id).populate({
+        path: 'details.details',
+        select: 'title detail',
+        model: this.detailsModel,
+        populate: {
+          path: 'detail',
+          model: this.detailsModel,
+          select: 'title text img',
+        },
+      });
     } catch (error) {
       console.log(error);
       throw new HttpException(Messages.occured, 500);
@@ -68,11 +79,18 @@ export class MedicalService {
   }
   async findSymbol(type: SymbolTypes, dto: GetDto) {
     try {
-      return this.model
-        .find({ symbols: type }, '_id title text')
+      let res = await this.model
+        .find({ symbols: type.toUpperCase() }, '_id title text')
         .limit(dto.limit)
-        .skip(dto.limit * (dto.page < 1 ? 1 : dto.page - 1))
+        .skip(dto.limit * (dto.page < 0 ? 0 : dto.page))
         .exec();
+      let count = await this.model
+        .find({ symbols: type.toUpperCase() })
+        .countDocuments();
+      return {
+        data: res,
+        count: count,
+      };
     } catch (error) {
       console.log(error);
       throw new HttpException(Messages.occured, 500);
@@ -105,7 +123,10 @@ export class MedicalService {
 
   async create(dto: MedicalDto) {
     try {
-      return this.model.create(dto);
+      return this.model.create({
+        ...dto,
+        symbols: SymbolType(dto.title),
+      });
     } catch (error) {
       console.log(error);
       throw new HttpException(Messages.occured, 500);
@@ -114,7 +135,13 @@ export class MedicalService {
 
   async createDetail(dto: MedicalDetailDto) {
     try {
-      return this.detailModel.create(dto);
+      let detail = await this.detailModel.findOne({ title: dto.title });
+      if (!detail) {
+        let res = await this.detailModel.create({ ...dto, parent: false });
+        return res._id;
+      } else {
+        return detail._id;
+      }
     } catch (error) {
       console.log(error);
       throw new HttpException(Messages.occured, 500);
@@ -122,7 +149,7 @@ export class MedicalService {
   }
   async createDetails(dto: MedicalDetailsDto) {
     try {
-      return this.detailsModel.create(dto);
+      return await this.detailsModel.create({ ...dto, parent: true });
     } catch (error) {
       console.log(error);
       throw new HttpException(Messages.occured, 500);

@@ -18,7 +18,7 @@ export class TopicService {
       return this.model
         .find()
         .limit(dto.limit)
-        .skip(dto.limit * (dto.page < 1 ? 1 : dto.page - 1))
+        .skip(dto.limit * (dto.page < 0 ? 0 : dto.page ))
         .exec();
     } catch (error) {
       console.log(error);

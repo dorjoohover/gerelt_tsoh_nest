@@ -11,7 +11,7 @@ export class MedicalDetailDto {
   @ApiProperty()
   text: string;
   @ApiProperty()
-  img: string;
+  img: any;
 }
 
 export class MedicalDetailsDto {
@@ -19,30 +19,30 @@ export class MedicalDetailsDto {
   @IsString()
   title: string;
 
-  @ApiProperty()
-  text: string;
-  @ApiProperty({ type: Array<MedicalDetailDto> })
-  detail: MedicalDetailDto[];
+  @ApiProperty({ type: Array })
+  detail: string[];
+  // @ApiProperty({ type: Array<MedicalDetailDto> })
+  // detail: MedicalDetailDto[];
 }
 export class MedicalMoreDto {
   @ApiProperty({ enum: MedicalTypes })
   @IsEnum(MedicalTypes)
   type: MedicalTypes;
 
-  @ApiProperty({ type: Array<MedicalDetailsDto> })
-  details: MedicalDetailsDto[];
+  @ApiProperty({ type: Array })
+  details: string[];
 }
 
 export class MedicalDto {
-  symbols: SymbolTypes;
+
   @ApiProperty({ required: true })
   title: string;
 
   @ApiProperty({ required: true })
   text: string;
 
-  @Prop({ type: Array<MedicalDetailsDto> })
-  details: MedicalDetailsDto[];
+  @Prop({ type: Array<MedicalMoreDto> })
+  details: MedicalMoreDto[];
   @Prop({ type: Array<string> })
   condition: string[];
 }

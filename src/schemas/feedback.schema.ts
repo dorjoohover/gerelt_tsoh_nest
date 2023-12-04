@@ -4,8 +4,14 @@ import mongoose, { Document } from 'mongoose';
 export type FeedbackDocument = Document & Feedback;
 
 class FeedBackDetail {
+
+  @Prop({ required: true })
+  question: string;
+  
   @Prop({ required: true })
   number: number;
+  @Prop({ required: true })
+  text: string;
 
   @Prop({ required: true })
   value: string;

@@ -18,7 +18,7 @@ export class ArticleService {
       return this.model
         .find()
         .limit(dto.limit)
-        .skip(dto.limit * (dto.page < 1 ? 1 : dto.page - 1))
+        .skip(dto.limit * (dto.page < 0 ? 0 : dto.page ))
         .exec();
     } catch (error) {
       console.log(error);
@@ -36,9 +36,9 @@ export class ArticleService {
   async findType(type: ArticleTypes, dto: GetDto) {
     try {
       return this.model
-        .find({ types: type })
+        .find({ types: type.toUpperCase() })
         .limit(dto.limit)
-        .skip(dto.limit * (dto.page < 1 ? 1 : dto.page - 1))
+        .skip(dto.limit * (dto.page < 0 ? 0 : dto.page ))
         .exec();
     } catch (error) {
       console.log(error);

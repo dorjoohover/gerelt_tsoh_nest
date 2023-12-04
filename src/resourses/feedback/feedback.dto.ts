@@ -13,12 +13,18 @@ import {
 
 export class FeedBackDetailDto {
   @ApiProperty({ required: true })
+  @IsString()
+  question: string;
+
+  @ApiProperty({ required: true })
   @IsNumber()
   number: number;
-
   @ApiProperty({ required: true })
   @IsString()
   value: string;
+  @ApiProperty({ required: true })
+  @IsString()
+  text: string;
 }
 
 

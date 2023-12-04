@@ -1,3 +1,4 @@
+export const api = 'http://localhost:5000/api/'
 export class Messages {
   // error messages
   static occured = "Алдаа гарлаа"

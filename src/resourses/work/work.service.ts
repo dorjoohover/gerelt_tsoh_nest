@@ -18,7 +18,7 @@ export class WorkService {
       return this.model
         .find()
         .limit(dto.limit)
-        .skip(dto.limit * (dto.page < 1 ? 1 : dto.page - 1))
+        .skip(dto.limit * (dto.page < 0 ? 0 : dto.page ))
         .exec();
     } catch (error) {
       console.log(error);
@@ -35,11 +35,16 @@ export class WorkService {
   }
   async findType(type: WorkTypes, dto: GetDto) {
     try {
-      return this.model
-        .find({ types: type })
+      let res = await this.model
+        .find({ types: type.toUpperCase() })
         .limit(dto.limit)
-        .skip(dto.limit * (dto.page < 1 ? 1 : dto.page - 1))
+        .skip(dto.limit * (dto.page < 0 ? 0 : dto.page ))
         .exec();
+        let count = await this.model.find({types: type.toUpperCase()}).countDocuments()
+        return {
+          data: res,
+          count: count
+        }
     } catch (error) {
       console.log(error);
       throw new HttpException(Messages.occured, 500);

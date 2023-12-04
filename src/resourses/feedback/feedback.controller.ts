@@ -14,7 +14,9 @@ import { FeedbackService } from './feedback.service';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { FeedBackDetailDto } from './feedback.dto';
 import { GetDto } from 'src/utlis/dto';
+import * as nodemailer from 'nodemailer';
 
+import { MailerService } from '@nestjs-modules/mailer';
 @Controller('feedback')
 @ApiTags('Feedback')
 export class FeedbackController {
@@ -33,7 +35,8 @@ export class FeedbackController {
   }
 
   @Post('/create')
-  create(@Body() dto: FeedBackDetailDto[]) {
+  async create(@Body() dto: FeedBackDetailDto[]) {
+    // this.send();
     return this.service.create(dto);
   }
   @ApiBearerAuth('access-token')

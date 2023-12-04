@@ -12,10 +12,10 @@ export class InfoService {
 
   async find(limit: number, page: number) {
     try {
-      return this.model
+      return await this.model
         .find()
         .limit(limit)
-        .skip(limit * (page < 1 ? 1 : page - 1))
+        .skip(limit * (page < 0 ? 0 : page))
         .exec();
     } catch (error) {
       console.log(error);
@@ -32,11 +32,20 @@ export class InfoService {
   }
   async findType(type: InfoTypes, limit = 5, page) {
     try {
-      return this.model
-        .find({ types: type })
+      let res = await this.model
+        .find({ types: type.toUpperCase() })
         .limit(limit)
-        .skip(limit * (page < 1 ? 1 : page - 1))
+        .skip(limit * (page < 0 ? 0 : page))
         .exec();
+      let count = await this.model
+        .find({ types: type.toUpperCase() })
+        .countDocuments();
+
+
+      return {
+        count: count,
+        data: res,
+      };
     } catch (error) {
       console.log(error);
       throw new HttpException(Messages.occured, 500);

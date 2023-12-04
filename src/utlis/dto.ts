@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+
 import { IsString } from 'class-validator';
 
 export class Detail {
@@ -7,6 +8,7 @@ export class Detail {
   title: string;
   @ApiProperty()
   text: string;
+
 }
 
 export class GetDto {

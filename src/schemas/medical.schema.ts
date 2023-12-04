@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { Document } from 'mongoose';
+import mongoose, { Document, ObjectId } from 'mongoose';
 import { MedicalTypes, SymbolTypes } from 'src/utlis/enum';
 
 export type MedicalDocument = Document & Medical;
@@ -16,6 +16,8 @@ export class MedicalDetail {
 
   @Prop()
   img: string;
+  @Prop({ required: true })
+  parent: boolean;
 }
 export const MedicalDetailSchema = SchemaFactory.createForClass(MedicalDetail);
 
@@ -24,20 +26,26 @@ export class MedicalDetails {
   @Prop({ required: true })
   title: string;
 
-  @Prop({ type: [MedicalDetailSchema], default: [] })
+  @Prop({
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: 'MedicalDetails',
+  })
   detail: MedicalDetail[];
+  @Prop({ required: true })
+  parent: boolean;
 }
 export const MedicalDetailsSchema =
   SchemaFactory.createForClass(MedicalDetails);
-@Schema({ timestamps: true })
+
 export class MedicalMore {
   @Prop({ required: true })
   type: MedicalTypes;
 
-  @Prop({ type: [MedicalDetailsSchema], default: [] })
+  @Prop({
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'medicalDetails' }],
+  })
   detail: MedicalDetails[];
 }
-export const MedicalMoreSchema = SchemaFactory.createForClass(MedicalMore);
 
 @Schema({ timestamps: true })
 export class Medical {
@@ -50,7 +58,7 @@ export class Medical {
   @Prop({ required: true })
   text: string;
 
-  @Prop({ type: [MedicalMoreSchema], default: [] })
+  @Prop({ type: [MedicalMore], default: [] })
   details: MedicalMore[];
   @Prop({ type: [], default: [] })
   condition: string[];

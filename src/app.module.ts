@@ -1,9 +1,9 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 
-import { AppService } from './app.service';
+
 import { AuthModule } from './resourses/auth/auth.module';
 import { UserModule } from './resourses/user/user.module';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import appConfig from './config/app.config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { InfoModule } from './resourses/info/info.module';
@@ -15,7 +15,8 @@ import { MedicalModule } from './resourses/medical/medical.module';
 import { ArticleModule } from './resourses/article/article.module';
 import { TopicModule } from './resourses/topic/topic.module';
 import { AppController } from './app.controller';
-
+import { MailerModule } from '@nestjs-modules/mailer';
+@Global()
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -28,6 +29,23 @@ import { AppController } from './app.controller';
       // // useUnifiedTopology: true,
       dbName: appConfig().dbName,
     }),
+    MailerModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (config: ConfigService) => ({
+        transport: {
+          host: 'smtp.ethereal.email',
+          port: 587,
+          service: 'gmail',
+          auth: {
+            user: 'dorjoohover@gmail.com',
+            pass: 'qwrn ysyk prkg iuls',
+          },
+        },
+        defaults: {
+          from: 'dorjoohover@gmail.com',
+        },
+      }),
+    }),
     AuthModule,
     UserModule,
     InfoModule,
@@ -39,7 +57,8 @@ import { AppController } from './app.controller';
     ArticleModule,
     TopicModule,
   ],
+
   controllers: [AppController],
-  providers: [AppService],
+  providers: [],
 })
 export class AppModule {}

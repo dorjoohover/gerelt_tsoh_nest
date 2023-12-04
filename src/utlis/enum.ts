@@ -30,6 +30,7 @@ export enum MedicalTypes {
   // CONDITION = 'CONDITION',
 }
 
+
 export enum SymbolTypes {
   AB = 'AB',
   VG = 'VG',

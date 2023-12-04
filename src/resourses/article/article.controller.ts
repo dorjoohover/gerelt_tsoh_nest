@@ -14,6 +14,8 @@ import { ArticleService } from './article.service';
 import { ArticleTypes } from 'src/utlis/enum';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { ArticleDto } from './article.dto';
+import axios from 'axios';
+import { api } from 'src/utlis/strings';
 
 @Controller('article')
 @ApiTags('Article')
@@ -34,8 +36,11 @@ export class ArticleController {
   @ApiBearerAuth('access-token')
   @UseGuards(AuthGuard)
   @Post('/create')
-  create(@Body() dto: ArticleDto) {
+  async create(@Body() dto: ArticleDto) {
+ 
+  
     return this.service.create(dto);
+    
   }
 
   @Get(':id')
