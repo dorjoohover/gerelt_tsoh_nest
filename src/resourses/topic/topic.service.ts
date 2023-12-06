@@ -40,8 +40,11 @@ export class TopicService {
         .limit(dto.limit)
         .skip(dto.limit * (dto.page < 0 ? 0 : dto.page))
         .exec();
-
-      return res;
+      let count = await this.model.find({type: type}).countDocuments()
+      return {
+        data: res,
+        count: count
+      }
     } catch (error) {
       console.log(error);
       throw new HttpException(Messages.occured, 500);
