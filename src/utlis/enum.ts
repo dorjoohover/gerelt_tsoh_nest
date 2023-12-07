@@ -27,6 +27,7 @@ export enum MedicalTypes {
   POSSIBLE = 'POSSIBLE',
   FUNCTIONS = 'FUNCTIONS',
   KEYS = 'KEYS',
+  OTHER = 'OTHER',
   // CONDITION = 'CONDITION',
 }
 
