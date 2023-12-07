@@ -53,7 +53,7 @@ export class FeedbackService {
   async create(dto: FeedBackDetailDto[]) {
     try {
       this.mailer.sendMail({
-        to: 'erdemsaikhan.dev@gmail.com',
+        to: 'gerelt.tsokhb@tokhiruulga.mn',
         subject: 'Санал хүсэлт ✔',
         text: `${dto.map((e) => {
           return e.number + '.' + e.question + ' => ' + e.text + '\n';

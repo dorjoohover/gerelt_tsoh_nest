@@ -51,7 +51,7 @@ export class ContactService {
   async create(dto: ContactDto) {
     try {
       this.mailer.sendMail({
-        to: 'erdemsaikhan.dev@gmail.com',
+        to: 'gerelt.tsokhb@tokhiruulga.mn',
         subject: 'Санал сэтгэгдэл ✔',
         text: `Email: ${dto.email}\nОвог: ${dto.firstname}\nНэр: ${dto.lastname}\nГарчиг: ${dto.title}\nЗурвас:${dto.text}`,
       });

@@ -204,7 +204,9 @@ export class MedicalService {
   }
   async deleteDetailsById(id: string) {
     try {
-      return this.detailsModel.findByIdAndRemove(id);
+      return this.detailsModel.deleteOne({
+        _id: id,
+      });
     } catch (error) {
       console.log(error);
       throw new HttpException(Messages.occured, 500);
