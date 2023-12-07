@@ -18,7 +18,7 @@ export class ArticleService {
       return this.model
         .find()
         .limit(dto.limit)
-        .skip(dto.limit * (dto.page < 0 ? 0 : dto.page ))
+        .skip(dto.limit * (dto.page < 0 ? 0 : dto.page))
         .exec();
     } catch (error) {
       console.log(error);
@@ -35,11 +35,18 @@ export class ArticleService {
   }
   async findType(type: ArticleTypes, dto: GetDto) {
     try {
-      return this.model
+      const res = await this.model
         .find({ types: type.toUpperCase() })
         .limit(dto.limit)
-        .skip(dto.limit * (dto.page < 0 ? 0 : dto.page ))
+        .skip(dto.limit * (dto.page < 0 ? 0 : dto.page))
         .exec();
+      const count = await this.model
+        .find({ types: type.toUpperCase() })
+        .countDocuments();
+      return {
+        data: res,
+        count: count,
+      };
     } catch (error) {
       console.log(error);
       throw new HttpException(Messages.occured, 500);

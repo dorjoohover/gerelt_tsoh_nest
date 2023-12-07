@@ -14,7 +14,7 @@ export class LegalService {
   async find(dto: GetDto) {
     try {
       return this.model
-        .find({}, "_id title")
+        .find({}, '_id title')
 
         .exec();
     } catch (error) {
@@ -32,10 +32,17 @@ export class LegalService {
   }
   async findType(type: LegalTypes, dto: GetDto) {
     try {
-      return this.model
-        .find({ types: type }, "_id title")
-
+      const res = await this.model
+        .find({ types: type.toUpperCase() }, '_id title')
         .exec();
+
+      const count = await this.model
+        .find({ types: type.toUpperCase() })
+        .countDocuments();
+      return {
+        data: res,
+        count: count,
+      };
     } catch (error) {
       console.log(error);
       throw new HttpException(Messages.occured, 500);
