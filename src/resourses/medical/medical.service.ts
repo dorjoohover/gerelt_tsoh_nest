@@ -188,7 +188,9 @@ export class MedicalService {
   }
   async deleteById(id: string) {
     try {
-      return this.model.findByIdAndRemove(id);
+      return this.model.deleteOne({
+        _id: id,
+      });
     } catch (error) {
       console.log(error);
       throw new HttpException(Messages.occured, 500);
@@ -196,7 +198,9 @@ export class MedicalService {
   }
   async deleteDetailById(id: string) {
     try {
-      return this.detailModel.findByIdAndRemove(id);
+      return this.detailModel.deleteOne({
+        _id: id,
+      });
     } catch (error) {
       console.log(error);
       throw new HttpException(Messages.occured, 500);
