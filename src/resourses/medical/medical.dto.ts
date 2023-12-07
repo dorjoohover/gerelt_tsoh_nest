@@ -45,4 +45,6 @@ export class MedicalDto {
   details: MedicalMoreDto[];
   @Prop({ type: Array<string> })
   condition: string[];
+  @Prop({ type: Array<string> })
+  setup: string[];
 }

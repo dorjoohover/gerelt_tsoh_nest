@@ -62,7 +62,7 @@ export class MedicalService {
   }
   async findById(id: string) {
     try {
-      return this.model.findById(id).populate({
+      return await this.model.findById(id).populate({
         path: 'details.details',
         select: 'title detail',
         model: this.detailsModel,

@@ -62,6 +62,8 @@ export class Medical {
   details: MedicalMore[];
   @Prop({ type: [], default: [] })
   condition: string[];
+  @Prop({ type: [], default: [] })
+  setup: string[];
 }
 
 export const MedicalSchema = SchemaFactory.createForClass(Medical);
