@@ -39,6 +39,9 @@ export class ArticleService {
         .find({ types: type.toUpperCase() })
         .limit(dto.limit)
         .skip(dto.limit * (dto.page < 0 ? 0 : dto.page))
+        .sort({
+          title: 1,
+        })
         .exec();
       const count = await this.model
         .find({ types: type.toUpperCase() })

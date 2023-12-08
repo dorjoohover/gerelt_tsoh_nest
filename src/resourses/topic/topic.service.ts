@@ -39,6 +39,9 @@ export class TopicService {
         .find({ type: type })
         .limit(dto.limit)
         .skip(dto.limit * (dto.page < 0 ? 0 : dto.page))
+        .sort({
+          title: 1,
+        })
         .exec();
       let count = await this.model.find({type: type}).countDocuments()
       return {

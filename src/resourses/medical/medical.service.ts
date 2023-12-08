@@ -83,7 +83,11 @@ export class MedicalService {
         .find({ symbols: type.toUpperCase() }, '_id title text')
         .limit(dto.limit)
         .skip(dto.limit * (dto.page < 0 ? 0 : dto.page))
+        .sort({
+          title: 1,
+        })
         .exec();
+
       let count = await this.model
         .find({ symbols: type.toUpperCase() })
         .countDocuments();

@@ -36,6 +36,9 @@ export class InfoService {
         .find({ types: type.toUpperCase() })
         .limit(limit)
         .skip(limit * (page < 0 ? 0 : page))
+        .sort({
+          title: 1,
+        })
         .exec();
       let count = await this.model
         .find({ types: type.toUpperCase() })

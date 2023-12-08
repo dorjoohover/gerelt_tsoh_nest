@@ -34,6 +34,9 @@ export class LegalService {
     try {
       const res = await this.model
         .find({ types: type.toUpperCase() }, '_id title')
+        .sort({
+          title: 1,
+        })
         .exec();
 
       const count = await this.model
