@@ -37,6 +37,8 @@ export class LegalService {
         .sort({
           title: 1,
         })
+        .limit(dto.limit)
+        .skip(dto.limit * (dto.page < 0 ? 0 : dto.page))
         .exec();
 
       const count = await this.model
