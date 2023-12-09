@@ -15,7 +15,7 @@ export class MedicalDetail {
   text: string;
 
   @Prop()
-  img: string;
+  img: string[];
   @Prop({ required: true })
   parent: boolean;
 }
