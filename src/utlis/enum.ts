@@ -13,6 +13,11 @@ export enum ArticleTypes {
   INFO = 'INFO',
   ALL = 'ALL',
 }
+export enum HomeTypes {
+  HEADER = 'HEADER',
+  PARTHNER = 'PARTHNER',
+  PROTOTYPE = 'PROTOTYPE',
+}
 
 export enum LegalTypes {
   LAW = 'LAW',

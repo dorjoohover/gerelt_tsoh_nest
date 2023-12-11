@@ -82,7 +82,7 @@ export class MedicalController {
   }
   @ApiBearerAuth('access-token')
   @UseGuards(AuthGuard)
-  @Put('edit/:id')
+  @Put('edits/:id')
   @ApiParam({ name: 'id' })
   detailsPut(@Param('id') id: string, dto: MedicalDetailsDto) {
     return this.service.detailsPut(id, dto);

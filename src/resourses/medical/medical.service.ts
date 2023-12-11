@@ -162,7 +162,7 @@ export class MedicalService {
 
   async put(id: string, dto: MedicalDto) {
     try {
-      return this.model.findByIdAndUpdate(id, {
+      return await this.model.findByIdAndUpdate(id, {
         dto,
       });
     } catch (error) {
@@ -172,7 +172,7 @@ export class MedicalService {
   }
   async detailPut(id: string, dto: MedicalDetailDto) {
     try {
-      return this.detailModel.findByIdAndUpdate(id, {
+      return await this.detailModel.findByIdAndUpdate(id, {
         dto,
       });
     } catch (error) {
@@ -182,7 +182,7 @@ export class MedicalService {
   }
   async detailsPut(id: string, dto: MedicalDetailsDto) {
     try {
-      return this.detailsModel.findByIdAndUpdate(id, {
+      return await this.detailsModel.findByIdAndUpdate(id, {
         dto,
       });
     } catch (error) {
@@ -192,7 +192,7 @@ export class MedicalService {
   }
   async deleteById(id: string) {
     try {
-      return this.model.deleteOne({
+      return await this.model.deleteOne({
         _id: id,
       });
     } catch (error) {
@@ -202,7 +202,7 @@ export class MedicalService {
   }
   async deleteDetailById(id: string) {
     try {
-      return this.detailModel.deleteOne({
+      return await this.detailModel.deleteOne({
         _id: id,
       });
     } catch (error) {

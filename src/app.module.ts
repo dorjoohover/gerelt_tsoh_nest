@@ -16,6 +16,7 @@ import { ArticleModule } from './resourses/article/article.module';
 import { TopicModule } from './resourses/topic/topic.module';
 import { AppController } from './app.controller';
 import { MailerModule } from '@nestjs-modules/mailer';
+import { HomeModule } from './resourses/home/home.module';
 @Global()
 @Module({
   imports: [
@@ -56,6 +57,7 @@ import { MailerModule } from '@nestjs-modules/mailer';
     MedicalModule,
     ArticleModule,
     TopicModule,
+    HomeModule,
   ],
 
   controllers: [AppController],

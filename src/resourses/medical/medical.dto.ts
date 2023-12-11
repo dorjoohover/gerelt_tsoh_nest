@@ -10,7 +10,7 @@ export class MedicalDetailDto {
 
   @ApiProperty()
   text: string;
-  @ApiProperty()
+  @ApiProperty({type: Array})
   img: any;
 }
 
