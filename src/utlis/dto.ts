@@ -17,7 +17,7 @@ export class GetDto {
   @ApiProperty({ type: Number, required: true, default: 1 })
   page: number;
   @ApiProperty()
-  startDate: string;
+  startDate: number;
   @ApiProperty()
   endDate: string;
 }

@@ -36,12 +36,21 @@ export class ArticleService {
   async findType(type: ArticleTypes, dto: GetDto) {
     try {
       const res = await this.model
-        .find({ types: type.toUpperCase() })
+        .find({
+          types:
+            type.toUpperCase() == 'ALL' ? { $ne: null } : type.toUpperCase(),
+        })
         .limit(dto.limit)
         .skip(dto.limit * (dto.page < 0 ? 0 : dto.page))
-        .sort({
-          title: 1,
-        })
+        .sort(
+          type.toUpperCase() == 'ALL'
+            ? {
+                createdAt: -1,
+              }
+            : {
+                title: 1,
+              },
+        )
         .exec();
       const count = await this.model
         .find({ types: type.toUpperCase() })

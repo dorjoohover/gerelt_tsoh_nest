@@ -11,6 +11,7 @@ export enum InfoTypes {
 export enum ArticleTypes {
   ARTICLE = 'ARTICLE',
   INFO = 'INFO',
+  ALL = 'ALL',
 }
 
 export enum LegalTypes {
