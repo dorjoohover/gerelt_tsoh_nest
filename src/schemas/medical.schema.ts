@@ -14,7 +14,7 @@ export class MedicalDetail {
   @Prop()
   text: string;
 
-  @Prop({ type: [] })
+  @Prop({ type: Array })
   // @Prop()
   img: string[];
   @Prop({ required: true })

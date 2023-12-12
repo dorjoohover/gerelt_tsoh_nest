@@ -77,7 +77,7 @@ export class MedicalController {
   @UseGuards(AuthGuard)
   @Put('edit/detail/:id')
   @ApiParam({ name: 'id' })
-  detailPut(@Param('id') id: string, dto: MedicalDetailDto) {
+  detailPut(@Param('id') id: string, @Body() dto: MedicalDetailDto) {
     return this.service.detailPut(id, dto);
   }
   @ApiBearerAuth('access-token')

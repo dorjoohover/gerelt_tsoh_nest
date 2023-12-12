@@ -172,8 +172,10 @@ export class MedicalService {
   }
   async detailPut(id: string, dto: MedicalDetailDto) {
     try {
+      console.log(dto);
       return await this.detailModel.findByIdAndUpdate(id, {
-        dto,
+        ...dto,
+        img: dto.img,
       });
     } catch (error) {
       console.log(error);
