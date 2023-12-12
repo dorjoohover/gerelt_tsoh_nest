@@ -17,6 +17,7 @@ export enum HomeTypes {
   HEADER = 'HEADER',
   PARTHNER = 'PARTHNER',
   PROTOTYPE = 'PROTOTYPE',
+  VIDEO = 'VIDEO',
 }
 
 export enum LegalTypes {
