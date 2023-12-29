@@ -29,9 +29,8 @@ export class HomeController {
   @Get(':type')
   async find(@Param('type') type: string) {
     try {
-      return type == HomeTypes.PARTHNER
-        ? await this.model.find({ type })
-        : await this.model.find({ type }).limit(2).sort({ createdAt: 1 });
+      return await this.model.find({ type })
+
     } catch (error) {
       console.log(error);
     }
