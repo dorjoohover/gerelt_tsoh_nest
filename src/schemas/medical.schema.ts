@@ -14,7 +14,7 @@ export class MedicalDetail {
   @Prop()
   text: string;
 
-  @Prop({ type: Array })
+  @Prop({ type: [String] })
   // @Prop()
   img: string[];
   @Prop({ required: true })
@@ -32,6 +32,9 @@ export class MedicalDetails {
     ref: 'MedicalDetails',
   })
   detail: MedicalDetail[];
+  @Prop({ type: [String] })
+  // @Prop()
+  img: string[];
   @Prop({ required: true })
   parent: boolean;
 }

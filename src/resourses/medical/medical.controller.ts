@@ -63,8 +63,13 @@ export class MedicalController {
     return this.service.findDetail();
   }
   @Get('details')
-  finnDetails() {
+  findDetails() {
     return this.service.findDetails();
+  }
+  @Put('/img/details')
+  setDetailsImg(@Body() dto: {images: string[]}) {
+    
+    return this.service.setDetails(dto.images);
   }
   @ApiBearerAuth('access-token')
   @UseGuards(AuthGuard)

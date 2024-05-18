@@ -50,7 +50,7 @@ export class MedicalService {
   }
   async findDetails() {
     try {
-      return this.detailsModel.find({ parent: true });
+      return this.detailsModel.find({ parent: true }).populate('detail');
 
       // .limit(dto.limit)
       // .skip(dto.limit * (dto.page < 1 ? 1 : dto.page - 1))
@@ -60,6 +60,45 @@ export class MedicalService {
       throw new HttpException(Messages.occured, 500);
     }
   }
+
+  async setDetails(dto: string[]) {
+    try {
+     
+      let details = await this.detailsModel.find({ img: { $gt: [] } });
+
+      return details
+
+      // let ids = details.map((d) => d._id);
+      // for (let i = 1; i <= details.length; i++) {
+      //   let imgs = details[i].img.map((im) => im.slice(13));
+
+      //   await this.detailsModel.updateOne(
+      //     { _id: details[i]._id },
+      //     { img: imgs },
+      //   );
+      // }
+
+      return await this.detailsModel.find({ img: { $gt: [] } });
+      // details.map(
+      //   (detail) => (detail.img = detail.img.map((d) => d.slice(13))),
+      // );
+      // return details;
+      return await this.detailsModel.find({
+        img: {
+          $elemMatch: {
+            name: {
+              $regex: '1701927133290Walker .png',
+              $options: 'i',
+            },
+          },
+        },
+      });
+      // return imgs;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   async findById(id: string) {
     try {
       return await this.model.findById(id).populate({
