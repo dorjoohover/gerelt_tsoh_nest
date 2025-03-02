@@ -24,10 +24,9 @@ import { HomeModule } from './resourses/home/home.module';
       isGlobal: true,
       load: [appConfig],
     }),
-
     MongooseModule.forRoot(appConfig().dbUrl, {
       // useNewUrlParser: true,
-      // // useUnifiedTopology: true,
+      // useUnifiedTopology: true,
       dbName: appConfig().dbName,
     }),
     MailerModule.forRootAsync({
